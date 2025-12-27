@@ -6,7 +6,17 @@ import chatRoutes from "./routes/chat";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://spur-frontend-9uo5abq4e-harshvardhans-projects-43a37545.vercel.app"
+    ],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
 app.use(express.json());
 
 app.use("/chat", chatRoutes);

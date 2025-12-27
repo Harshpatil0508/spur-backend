@@ -1,26 +1,36 @@
-import prisma  from "../db/prisma";
+import prisma from "../db/prisma";
 import { generateReply } from "./llm.service";
 
 export async function handleChat(message: string, sessionId?: string) {
   let conversationId: string;
 
-  if (!sessionId) {
-    const convo = await prisma.conversation.create({ data: {} });
-    conversationId = convo.id; 
+  // Ensure conversation exists
+  if (sessionId) {
+    const convo = await prisma.conversation.findUnique({
+      where: { id: sessionId },
+    });
+
+    if (!convo) {
+      const newConvo = await prisma.conversation.create({ data: {} });
+      conversationId = newConvo.id;
+    } else {
+      conversationId = convo.id;
+    }
   } else {
-    conversationId = sessionId;
+    const convo = await prisma.conversation.create({ data: {} });
+    conversationId = convo.id;
   }
 
-  // Create user message
+  // Save user message
   await prisma.message.create({
     data: {
-      conversationId, 
+      conversationId,
       sender: "user",
       text: message,
     },
   });
 
-  // Fetch conversation history
+  // Fetch history
   const history = await prisma.message.findMany({
     where: { conversationId },
     orderBy: { createdAt: "asc" },

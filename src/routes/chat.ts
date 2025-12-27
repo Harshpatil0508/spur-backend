@@ -8,17 +8,13 @@ router.post("/message", async (req, res) => {
   try {
     const { message, sessionId } = req.body;
 
-    if (!message || typeof message !== "string" || !message.trim()) {
+    if (!message?.trim()) {
       return res.status(400).json({ error: "Message cannot be empty" });
     }
 
-    if (message.length > 2000) {
-      return res.status(400).json({ error: "Message too long (max 2000 chars)" });
-    }
-
     const result = await handleChat(message.trim(), sessionId);
-
     res.json(result);
+
   } catch (err) {
     console.error("Chat error:", err);
     res.status(500).json({
@@ -26,6 +22,7 @@ router.post("/message", async (req, res) => {
     });
   }
 });
+
 
 
 router.get("/history/:sessionId", async (req, res) => {

@@ -6,7 +6,7 @@ export async function handleChat(message: string, sessionId?: string) {
 
   if (!sessionId) {
     const convo = await prisma.conversation.create({ data: {} });
-    conversationId = convo.id; // now guaranteed to be string
+    conversationId = convo.id; 
   } else {
     conversationId = sessionId;
   }
@@ -14,7 +14,7 @@ export async function handleChat(message: string, sessionId?: string) {
   // Create user message
   await prisma.message.create({
     data: {
-      conversationId, // ✅ guaranteed string
+      conversationId, 
       sender: "user",
       text: message,
     },

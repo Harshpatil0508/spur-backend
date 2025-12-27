@@ -4,9 +4,6 @@ import prisma from "../db/prisma";
 
 const router = Router();
 
-/**
- * Send a new chat message
- */
 router.post("/message", async (req, res) => {
   try {
     const { message, sessionId } = req.body;
@@ -30,9 +27,7 @@ router.post("/message", async (req, res) => {
   }
 });
 
-/**
- * Get full chat history for a session
- */
+
 router.get("/history/:sessionId", async (req, res) => {
   try {
     const { sessionId } = req.params;

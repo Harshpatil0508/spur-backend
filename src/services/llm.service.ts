@@ -43,32 +43,25 @@ STYLE:
 }
 
 
-// export async function generateReply(
-//   history: { sender: string; text: string }[],
-//   userMessage: string
-// ): Promise<string> {
-//   const messages = [
-//   { role: "system", content: buildSystemPrompt() },
-//   ...history.map((m) => ({
-//     role: m.sender === "user" ? "user" : "assistant",
-//     content: m.text,
-//   })),
-// ]as any[];
-
-//   const completion = await groq.chat.completions.create({
-//     model: "llama-3.1-8b-instant",
-//     messages,
-//     temperature: 0.3,
-//     max_tokens: 300,
-//   });
-
-//   return completion.choices[0]?.message?.content  ||
-//     "Sorry, I'm having trouble responding right now. Please try again.";
-// }
 export async function generateReply(
   history: { sender: string; text: string }[],
   userMessage: string
 ): Promise<string> {
-  // For testing only
-  return `Echo: ${userMessage}`;
+  const messages = [
+  { role: "system", content: buildSystemPrompt() },
+  ...history.map((m) => ({
+    role: m.sender === "user" ? "user" : "assistant",
+    content: m.text,
+  })),
+]as any[];
+
+  const completion = await groq.chat.completions.create({
+    model: "llama-3.1-8b-instant",
+    messages,
+    temperature: 0.3,
+    max_tokens: 300,
+  });
+
+  return completion.choices[0]?.message?.content  ||
+    "Sorry, I'm having trouble responding right now. Please try again.";
 }

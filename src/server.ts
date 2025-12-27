@@ -10,7 +10,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://spur-frontend-9uo5abq4e-harshvardhans-projects-43a37545.vercel.app"
+      "https://spur-frontend-hddgkzpuc-harshvardhans-projects-43a37545.vercel.app"
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],

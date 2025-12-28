@@ -26,61 +26,69 @@ The AI behaves like a real customer support agent and strictly follows predefine
 - Groq SDK
 - PostgreSQL
 
----
 
 ## Project Structure
 
+
+```text
 src/
 ├── db/
-│ └── prisma.ts
+│   └── prisma.ts
 ├── routes/
-│ └── chat.ts
+│   └── chat.ts
 ├── services/
-│ ├── chat.service.ts
-│ └── llm.service.ts
+│   ├── chat.service.ts
+│   └── llm.service.ts
 ├── server.ts
+
 prisma/
 └── schema.prisma
+```
 
----
-
+## Clone the Repository
+```
+git clone https://github.com/Harshpatil0508/spur-backend.git
+cd spur-backend
+```
 ## Environment Variables
 
 ### Create a .env file in the project root:
 
-- PORT=3001
-- DATABASE_URL=your_database_url
-- GROQ_API_KEY=your_groq_api_key
-
----
+```
+PORT=3001
+DATABASE_URL=your_database_url
+GROQ_API_KEY=your_groq_api_key
+```
 
 ## Installation
 
 ### Install dependencies:
-
-- npm install
+```
+npm install
+```
 
 ### Generate Prisma client:
-
-- npx prisma generate
+```
+npx prisma generate
+```
 
 ### Run database migrations:
-
-- npx prisma migrate dev
-
---- 
+```
+npx prisma migrate dev
+```
+---
 
 ## Running the Server
 
 ### Development
-
-- npm run dev
-
+```
+npm run dev
+```
 ### Production
-
-- npm run build
-- npm start
-
+```
+npm run build
+npm start
+```
 ### Server runs on:
 
 - http://localhost:3001
@@ -92,37 +100,40 @@ prisma/
 - GET /health
 
 - Response:
-
+```
 {
 "status": "ok"
 }
-
+```
 ---
 
-Send Chat Message
+### Send Chat Message
 
-POST /chat/message
+- POST /chat/message
 
-Request Body:
-
+- Request Body:
+```
 {
 "message": "Where is my order?",
-"sessionId": "optional-session-id"
+"sessionId": "session-id"
 }
+```
+- Response:
 
-Response:
-
+```
 {
 "reply": "Your order will be delivered within 5–7 business days.",
 "sessionId": "conversation-id"
 }
+```
 
-Fetch Chat History
+### Fetch Chat History
 
-GET /chat/history/:sessionId
+- GET /chat/history/:sessionId
 
-Response:
+- Response:
 
+```
 {
 "messages": [
 {
@@ -137,44 +148,29 @@ Response:
 }
 ]
 }
+```
 
-AI Behavior
+## AI Behavior
 
-The AI support agent:
+### The AI support agent:
 
-Acts as a professional customer support executive
+- Acts as a professional customer support executive
 
-Answers only store-related questions
+- Answers only store-related questions
 
-Follows strict store policies
+- Follows strict store policies
 
-Politely refuses out-of-scope queries
+- Politely refuses out-of-scope queries
 
-Keeps responses short and clear
+- Keeps responses short and clear
 
-No emojis, no markdown, no hallucinated content
+- No emojis, no markdown, no hallucinated content
 
-Frontend Integration
 
-CORS is configured for:
+## Frontend Integration
 
-https://spur-frontend-rouge.vercel.app
+### CORS is configured for:
 
-Update this value in server.ts if required.
+- https://spur-frontend-rouge.vercel.app
 
-Deployment Notes
 
-Deployable on Railway, Render, or AWS
-
-Use a persistent database in production
-
-Monitor Groq API usage
-
-Author
-
-Harshvardhan Patil
-Backend Developer | AI & Full-Stack Engineer
-
-License
-
-MIT License

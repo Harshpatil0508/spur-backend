@@ -167,10 +167,6 @@ npm start
 - No emojis, no markdown, no hallucinated content
 
 
-## Frontend Integration
 
-### CORS is configured for:
-
-- https://spur-frontend-rouge.vercel.app
 
 
